@@ -1,32 +1,361 @@
-# BlockChainVoting
+# 🗳️ BlockChainVoting – Algorand Decentralized Voting dApp
 
-A blockchain-based E-voting system
+**Secure, transparent, and tamper-proof voting system** built on the **Algorand blockchain**.
 
-## Build Setup
+This project demonstrates **on-chain governance**, **smart contract-based proposal creation**, and **wallet-integrated voting** using **Algorand's high-performance blockchain**.
+
+---
+
+## 🚀 Project Overview
+
+**BlockChainVoting** is a decentralized voting platform built using:
+
+* 🔹 **Algorand Smart Contracts** (PyTeal / AlgoKit)
+* 🔹 **React + TypeScript** Frontend
+* 🔹 **AlgoKit** monorepo structure
+* 🔹 **Wallet integration** for secure voting
+
+### ✅ Key Features
+
+* ✅ **Secure on-chain voting**
+* ✅ **Smart contract-based proposal creation**
+* ✅ **Transparent vote counting**
+* ✅ **Wallet integration**
+* ✅ **Frontend + Smart Contract architecture**
+
+### 🛡️ Guarantees
+
+* 🔒 **Tamper-proof voting**
+* 🔍 **Transparent results**
+* ⚖️ **Decentralized governance logic**
+
+---
+
+## 🧠 How Voting Works
+
+```
+1️⃣ Admin deploys the voting smart contract
+    ↓
+2️⃣ Proposals are created on-chain
+    ↓
+3️⃣ Users connect wallet
+    ↓
+4️⃣ Users cast vote (recorded on blockchain)
+    ↓
+5️⃣ Results are fetched transparently via Indexer
+```
+
+Each vote:
+* ✅ Is **immutable**
+* ✅ Is **publicly verifiable**
+* ✅ **Cannot be altered**
+
+---
+
+## 📂 Project Structure
+
+```
+BlockChainVoting/
+│
+├── projects/
+│   ├── contracts/            # Smart Contracts
+│   │   └── smart_contracts/  # Voting logic
+│   └── frontend/             # React Frontend
+│       ├── src/
+│       │   ├── Home.tsx      # Landing page
+│       │   ├── components/   # Voting UI
+│       │   ├── contracts/    # Generated contract clients
+│       │   └── utils/        # Network configuration
+│       └── .env              # Environment variables
+│
+├── algokit.yaml
+└── README.md
+```
+
+### 🔹 Smart Contracts
+
+**Location:** `projects/contracts/smart_contracts/`
+
+Contains:
+* Voting logic
+* Proposal creation
+* Vote casting
+* Result computation
+
+### 🔹 Frontend
+
+**Location:** `projects/frontend/`
+
+Important files:
+* `src/Home.tsx` → Landing page
+* `src/components/` → Voting UI
+* `src/contracts/` → Generated contract clients
+* `src/utils/network/` → Network configuration
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend (Smart Contracts)
+* **Algorand Blockchain**
+* **PyTeal** (Smart Contract Language)
+* **AlgoKit** (Development Framework)
+
+### Frontend
+* **React** + **TypeScript**
+* **Vite** (Build Tool)
+* **TailwindCSS** (Styling)
+* **Algorand Wallet Integration**
+
+### Tools
+* **AlgoKit CLI**
+* **Docker**
+* **Node.js 18+**
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+
+Before starting, ensure you have:
+
+* ✅ **Docker** (running)
+* ✅ **Node.js 18+**
+* ✅ **npm**
+* ✅ **AlgoKit CLI** installed
+
+Install AlgoKit from official docs:  
+👉 [https://developer.algorand.org/docs/get-started/algokit/](https://developer.algorand.org/docs/get-started/algokit/)
+
+---
+
+### 1️⃣ Clone Repository
 
 ```bash
-# install dependencies
+git clone https://github.com/sane-eagle/BlockChainVoting.git
+cd BlockChainVoting
+```
+
+### 2️⃣ Bootstrap Workspace
+
+```bash
+algokit project bootstrap all
+```
+
+This will:
+* Install dependencies
+* Setup Python virtual environment
+* Install smart contract requirements
+* Install frontend dependencies
+
+### 3️⃣ Build All Projects
+
+```bash
+algokit project run build
+```
+
+### 4️⃣ Run Frontend
+
+```bash
+cd projects/frontend
 npm install
-
-# serve with hot reload at localhost:3000
-npm start
+npm run dev
 ```
 
-Create your own <b>.env</b> file and the file should contain:
+App will run at:
+```
+http://localhost:5173
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in `projects/frontend/`:
+
+```env
+# Algod (TestNet)
+VITE_ALGOD_SERVER=https://testnet-api.algonode.cloud
+VITE_ALGOD_PORT=
+VITE_ALGOD_TOKEN=
+VITE_ALGOD_NETWORK=testnet
+
+# Indexer
+VITE_INDEXER_SERVER=https://testnet-idx.algonode.cloud
+VITE_INDEXER_PORT=
+VITE_INDEXER_TOKEN=
+```
+
+**Important:** Restart dev server after editing:
 
 ```bash
-EMAIL=YOUR_EMAIL_ID
-PASSWORD=YOUR_PASSWORD_FOR_EMAIL_ID
+npm run dev
 ```
 
-Install MetaMask extension (https://metamask.io/download.html) and make sure to have some Ether to test the application locally. Ether can be fetched from Rinkeby Faucet (https://faucet.rinkeby.io)
+---
 
-#### Note:
+## 🧪 Testing on TestNet
 
-- Make sure to install Node.js v11.14.0 to make sure the app runs fine. Testing for other node versions is yet to be done.
-- MongoDB must be working in background on localhost:27017
+Make sure:
 
-###### Please star the repo if it helped you in any way!
+* ✅ Wallet is connected
+* ✅ Account is funded (TestNet ALGO)
+* ✅ App ID is correct
+* ✅ Network = TestNet
+
+### Get TestNet ALGO from:
+👉 [https://bank.testnet.algorand.network/](https://bank.testnet.algorand.network/)
+
+---
+
+## 🔧 Smart Contract Interaction
+
+Generated TypeScript clients are located at:
+```
+projects/frontend/src/contracts/
+```
+
+### Available Functions
+
+Frontend calls:
+
+* `deploy()` → Deploy voting contract
+* `createProposal()` → Add new proposal
+* `vote()` → Cast vote
+* `getResults()` → Fetch results
+
+### Example Usage
+
+```typescript
+import { VotingClient } from './contracts/VotingClient';
+
+// Cast a vote
+await votingClient.vote({
+  proposalId: 1,
+  voteChoice: 'yes'
+});
+
+// Get results
+const results = await votingClient.getResults();
+```
+
+---
+
+## 🎨 UI Customization (Hackathon Tip)
+
+You can safely redesign the UI without breaking logic!
+
+### Example Prompt for AI Redesign
+
+```
+Redesign projects/frontend/src/components/Voting.tsx using TailwindCSS 
+to look like a modern Web3 governance dashboard. Include:
+- Proposal cards
+- Vote buttons (Yes / No)
+- Wallet connection banner
+- Results progress bar
+
+Keep ALL logic, wallet connections, and contract calls EXACTLY as-is. 
+Modify only JSX and Tailwind classes.
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### ❌ "Missing VITE_ALGOD_SERVER"
+* Check `.env` file exists in `projects/frontend/`
+* Restart dev server
+
+### ❌ Transactions Fail
+* Ensure wallet is funded with TestNet ALGO
+* Confirm TestNet is selected in wallet
+* Confirm correct App ID
+
+### ❌ Votes Not Updating
+* Verify Indexer config in `.env`
+* Check network consistency (TestNet vs MainNet)
+
+---
+
+## 🚀 Hackathon Extension Ideas
+
+* 🎯 Add **time-restricted voting**
+* 🎨 Add **NFT-based voting rights**
+* 💰 Add **DAO treasury logic**
+* 📊 Add **quadratic voting**
+* 🗳️ Add **multi-proposal elections**
+* 📈 Add **live result charts**
+* 🔔 Add **notification system**
+* 👥 Add **delegate voting**
+
+---
+
+## 🌐 Deployment
+
+### Deploy Smart Contract
+
+```bash
+algokit deploy
+```
+
+### Deploy Frontend
+
+Deploy to:
+* **Vercel**
+* **Netlify**
+* **Railway**
+
+Add environment variables in hosting dashboard.
+
+---
+
+## 📚 Useful Resources
+
+* **Algorand Developer Portal**  
+  [https://developer.algorand.org/](https://developer.algorand.org/)
+
+* **AlgoKit Docs**  
+  [https://developer.algorand.org/docs/get-started/algokit/](https://developer.algorand.org/docs/get-started/algokit/)
+
+* **Algorand Workshops**  
+  [https://algorand.co/algokit-workshops](https://algorand.co/algokit-workshops)
+
+* **Algorand Discord**  
+  [https://discord.gg/algorand](https://discord.gg/algorand)
+
+---
+
+## 🏆 Why BlockChainVoting?
+
+* 🔍 **Transparent governance**
+* ⛓️ **Fully on-chain**
+* 🔒 **Secure and immutable**
+* 🏛️ **Real-world DAO foundation**
+* 🚀 **Hackathon-ready architecture**
+
+---
+
+## 👨‍💻 Built For
+
+* 🏆 **Web3 Hackathons**
+* 🏛️ **DAO Governance Projects**
+* 🎓 **Student Blockchain Projects**
+* 🌍 **Government Transparency Experiments**
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+
+* 🐛 **Report bugs**
+* 💡 **Suggest features**
+* 🔧 **Submit pull requests**
+* ⭐ **Star the repository**
+
+---
 
 ## Tech Stack:
 
@@ -84,3 +413,17 @@ Unsuccessful voting scenario:
 Notification to each candidate and voter for the winner of candidates:
 
 ![](screenshots/winner_candidate_mail.PNG)
+
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 👨‍💻 Author
+
+**Yash Sawant**  
+👨‍💻 Full-Stack Developer | Blockchain Enthusiast  
+📧 yashsawant868@gmail.com  
+🌐 GitHub: [https://github.com/sane-eagle](https://github.com/sane-eagle)
